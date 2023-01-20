@@ -23,6 +23,8 @@ pub struct SymbolMetadata {
     pub ledger_symbol: Option<String>,
     /// The symbol, as used at Interactive Brokers.
     pub ib_symbol: Option<String>,
+    /// Remarks
+    pub remarks: Option<String>
 }
 
 #[allow(unused)]
