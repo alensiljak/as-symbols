@@ -1,8 +1,16 @@
 [package]
 name = "as-symbols"
+description = "A library for managing the list of financial symbols and related information"
 version = "0.1.0"
 edition = "2021"
+authors = ["Alen Šiljak <dev@alensiljak.eu.org>"]
+license = 'GPL-3.0-or-later'
+repository = 'https://github.com/alensiljak/as-symbols'
+
+categories = ['finance']
+keywords = ["library", "finance", "symbols"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+csv = "1.1.6"
