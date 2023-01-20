@@ -2,6 +2,8 @@
 The symbols library parses the symbols data file and returns the collection of SymbolMetadata objects.
  */
 
+use std::path::PathBuf;
+
 #[allow(unused)]
 #[derive(Debug, Default)]
 pub struct SymbolMetadata {
@@ -29,10 +31,10 @@ impl SymbolMetadata {
 }
 
 /// Read and parse the symbols collection.
-pub fn read_symbols(path: &str) -> Vec<SymbolMetadata> {
+pub fn read_symbols(path: &PathBuf) -> Vec<SymbolMetadata> {
     // read file
-    let contents = std::fs::read_to_string(path).expect("file read");
-    println!("file read: {:?}", contents);
+    // let contents = std::fs::read_to_string(path).expect("file read");
+    // println!("file read: {:?}", contents);
 
     let mut rdr = csv::Reader::from_path(path).expect("Symbols file read.");
 
@@ -46,12 +48,18 @@ pub fn read_symbols(path: &str) -> Vec<SymbolMetadata> {
 
 #[cfg(test)]
 mod tests {
+    use std::path::PathBuf;
+
     use crate::read_symbols;
 
     #[test]
     fn read_test_file() {
-        let path = "tests/dummy.csv";
-        let actual = read_symbols(path);
+        println!("running in {:?}", std::env::current_dir());
+        
+        let path = PathBuf::from("tests/dummy.csv");
+        println!("path: {:?}", path);
+
+        let actual = read_symbols(&path);
 
         assert!(!actual.is_empty());
     }
