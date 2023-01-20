@@ -1,0 +1,4 @@
+namespace,symbol,currency,updater,updater_symbol,ledger_symbol,ib_symbol,remarks
+ASX,AEF,AUD,yahoo_finance,AEF_AX,,,
+ASX,TCF,AUD,yahoo_finance,TCF_AX,,,former AYF
+ASX,A2B,AUD,yahoo_finance,,,

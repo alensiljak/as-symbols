@@ -44,7 +44,10 @@ pub fn read_symbols(path: &PathBuf) -> anyhow::Result<Vec<SymbolMetadata>> {
     // parse
     // .records() = raw
     let collection: Vec<SymbolMetadata> = rdr.deserialize()
-        .map(|result| result.expect("deserialized row"))
+        .map(|result| match result {
+            Ok(symbol) => symbol,
+            Err(e) => panic!("Error deserializing: {e}"),
+        })
         .collect();
     
     // Header row? Parsed by default.
@@ -83,5 +86,16 @@ mod tests {
         let actual = &list[0];
 
         assert_eq!("AUD", actual.symbol);
+    }
+
+    /// Panics if a row has less fields than the previous one.
+    #[test_log::test]
+    #[should_panic(expected="Error deserializing: CSV error: record 3 (line: 3, byte: 165): found record with 7 fields, but the previous record has 8 fields")]
+    fn test_parsing_error() {
+        let path = PathBuf::from("tests/dummy2.csv");
+
+        let list = read_symbols(&path).expect("parsed");
+
+        assert!(!list.is_empty());
     }
 }
