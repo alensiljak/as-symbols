@@ -12,12 +12,13 @@ IBFlex uses the symbols table to translate the symbols between IB symbols and th
 
 # Use
 
-TODO
+``` rust
+let path = PathBuf::from("tests/dummy.csv");
+let list = read_symbols(&path).expect("parsed");
+```
 
 # Format
 
 The library reads the file containing the symbols data. Based on tests, the CSV format seems the simplest and the most-performant for this purpose.
 
-The columns in the file are:
-
-TODO
+The columns in the file are defined in the SymbolMetadata struct.
