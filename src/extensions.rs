@@ -4,13 +4,13 @@ Extension methods
 
 use crate::SymbolMetadata;
 
-trait MyVec {
+pub trait SymbolsVec {
     /// Searches the list by symbol ("BVME:DEM") and returns an option.
     fn find_by_full_symbol(&self, search_term: &str) -> Option<&SymbolMetadata>;
     fn find_by_ledger_symbol(&self, search_term: &str) -> Option<&SymbolMetadata>;
 }
 
-impl MyVec for Vec<SymbolMetadata> {
+impl SymbolsVec for Vec<SymbolMetadata> {
     fn find_by_full_symbol(&self, search_term: &str) -> Option<&SymbolMetadata> {
         self.iter().find_map(|sm| {
             if sm.symbol_w_namespace() == search_term {
@@ -36,7 +36,7 @@ impl MyVec for Vec<SymbolMetadata> {
 mod tests {
     use crate::SymbolMetadata;
 
-    use super::MyVec;
+    use super::SymbolsVec;
 
     #[test_log::test]
     fn test_extension_method() {
