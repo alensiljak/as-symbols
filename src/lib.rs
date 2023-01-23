@@ -1,6 +1,7 @@
 /*!
 The symbols library parses the symbols data file and returns the collection of SymbolMetadata objects.
  */
+mod extensions;
 
 use std::path::PathBuf;
 
