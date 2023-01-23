@@ -30,11 +30,11 @@ pub struct SymbolMetadata {
 
 #[allow(unused)]
 impl SymbolMetadata {
-    fn new() -> Self {
+    pub fn new() -> Self {
         Self::default()
     }
 
-    fn symbol_w_namespace(&self) -> String {
+    pub fn symbol_w_namespace(&self) -> String {
         match &self.namespace {
             Some(namespace) => format!("{}:{}", namespace, self.symbol),
             None => self.symbol.to_string(),
