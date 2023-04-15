@@ -34,6 +34,14 @@ impl SymbolMetadata {
         Self::default()
     }
 
+    /// Returns ledger symbol, if exists, or the main symbol.
+    pub fn get_symbol(&self) -> String {
+        match &self.ledger_symbol {
+            Some(ls) => ls.to_owned(),
+            None => self.symbol.to_owned(),
+        }
+    }
+
     pub fn symbol_w_namespace(&self) -> String {
         match &self.namespace {
             Some(namespace) => format!("{}:{}", namespace, self.symbol),
@@ -105,5 +113,21 @@ mod tests {
         let list = read_symbols(&path).expect("parsed");
 
         assert!(!list.is_empty());
+    }
+
+    #[test]
+    fn test_get_symbol() {
+        let path = PathBuf::from("tests/dummy.csv");
+        let result = read_symbols(&path);
+        let symbols = result.expect("parsed");
+
+        let record = symbols.iter().find(|&symbol| symbol.symbol == "EL4X")
+            .expect("found");
+
+        let actual = record.get_symbol();
+
+        assert_eq!("EL4X_DE", actual);
+        assert_eq!("EL4X", record.symbol);
+        assert_eq!(Some("EL4X_DE".to_owned()), record.ledger_symbol);
     }
 }
